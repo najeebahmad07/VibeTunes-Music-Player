@@ -42,7 +42,7 @@
 ## **Screenshots**
 
 ### **Home Screen**  
-![Home Screen](https://www.imagebam.com/view/MEXRBQV)  
+![Home Screen](https://drive.google.com/file/d/14ejw8Y5utLfUURncHjqys0g3pBOcibT7/view?usp=drivesdk)  
 
 ### **Music Playback**  
 ![Music Playback](https://via.placeholder.com/800x400?text=Music+Playback)  
