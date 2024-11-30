@@ -42,7 +42,7 @@
 ## **Screenshots**
 
 ### **Home Screen**  
-![Home Screen](https://via.placeholder.com/800x400?text=Home+Screen)  
+![Home Screen](https://ibb.co/HHBSgBf)  
 
 ### **Music Playback**  
 ![Music Playback](https://via.placeholder.com/800x400?text=Music+Playback)  
