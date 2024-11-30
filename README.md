@@ -45,10 +45,10 @@
 ![Home Screen](https://drive.google.com/file/d/14ejw8Y5utLfUURncHjqys0g3pBOcibT7/view?usp=drivesdk)  
 
 ### **Music Playback**  
-![Music Playback](https://via.placeholder.com/800x400?text=Music+Playback)  
+![Music Playback](https://drive.google.com/file/d/14g9CDrGfrX3vyiBKXqDowM7JtaJKZK4g/view?usp=drivesdk)  
 
 ### **YouTube Video Playback**  
-![YouTube Video Playback](https://via.placeholder.com/800x400?text=YouTube+Video+Playback)  
+![YouTube Video Playback](https://drive.google.com/file/d/14jQ78TXjulbz1pQHOtabAbENEtPYvHA7/view?usp=drivesdk)  
 
 ---
 
