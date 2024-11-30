@@ -42,13 +42,9 @@
 ## **Screenshots**
 
 ### **Home Screen**  
-![Home Screen](https://drive.google.com/file/d/14ejw8Y5utLfUURncHjqys0g3pBOcibT7/view?usp=drivesdk)  
-
-### **Music Playback**  
-![Music Playback](https://drive.google.com/file/d/14g9CDrGfrX3vyiBKXqDowM7JtaJKZK4g/view?usp=drivesdk)  
-
-### **YouTube Video Playback**  
-![YouTube Video Playback](https://drive.google.com/file/d/14jQ78TXjulbz1pQHOtabAbENEtPYvHA7/view?usp=drivesdk)  
+![Screenshot_20241130-115129](https://github.com/user-attachments/assets/5ffcb637-7745-49f4-a40b-4932b6c027bf)
+![Screenshot_20241130-115139](https://github.com/user-attachments/assets/17056e73-d872-4e0b-b474-378acd9b88ea)
+![Screenshot_20241130-115144](https://github.com/user-attachments/assets/f8ae8df9-11b9-47ef-9d56-93b41087d79a)
 
 ---
 
