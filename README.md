@@ -49,7 +49,7 @@
 ---
 
 ## **Live Demo**
-Check out the live version of VibeTunes: **[Live Demo Link](https://your-live-demo-link.com)**
+Check out the live version of VibeTunes: **[Live Demo Link](https://vibetunesmusicplayer.netlify.app/)**
 
 ---
 
