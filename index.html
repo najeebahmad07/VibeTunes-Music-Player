@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeTunes - Material Music Player</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      background: linear-gradient(120deg, #fdfbfb, #ebedee);
+      font-family: 'Roboto', sans-serif;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+      font-weight: bold;
+    }
+
+    #playlist {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #playlist li {
+      cursor: pointer;
+      padding: 10px 15px;
+      margin: 5px 0;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #playlist li:hover {
+      background-color: #e6e6e6;
+      transform: translateY(-3px);
+    }
+
+    #vibeCircle {
+      width: 220px;
+      height: 220px;
+      margin: 20px auto;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffb199, #ff0844);
+      animation: pulse 1.5s infinite;
+      display: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 110, 110, 0.8);
+      }
+      50% {
+        transform: scale(1.2);
+        box-shadow: 0 0 40px rgba(255, 110, 110, 1);
+      }
+    }
+
+    footer {
+      background: #ffffff;
+      padding: 15px 0;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="#">VibeTunes</a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container mt-5">
+    <div id="fileAccessSection" class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card text-center p-4">
+          <h3 class="card-title mb-3">Access Your Music Files</h3>
+          <button id="requestAccess" class="btn btn-primary mb-3">Allow File Access</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="musicPlayerSection" class="row d-none">
+      <div class="col-md-8 mx-auto">
+        <div class="card text-center p-4">
+          <div id="vibeCircle"></div>
+          <audio id="audioPlayer" controls class="w-100"></audio>
+          <h5 class="mt-4">Now Playing:</h5>
+          <p id="currentSong" class="text-primary fw-bold"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-8 mx-auto">
+        <div class="card p-4">
+          <h4 class="text-center mb-3">Your Playlist</h4>
+          <ul id="playlist" class="list-group">
+            <!-- Songs will be added dynamically -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Developed by <strong>NJB DEV</strong> | VibeTunes © 2024</p>
+  </footer>
+
+  <script>
+    const requestAccessButton = document.getElementById("requestAccess");
+    const fileAccessSection = document.getElementById("fileAccessSection");
+    const musicPlayerSection = document.getElementById("musicPlayerSection");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const playlist = document.getElementById("playlist");
+    const currentSong = document.getElementById("currentSong");
+    const vibeCircle = document.getElementById("vibeCircle");
+
+    let songList = [];
+    let currentIndex = 0;
+
+    // Request file system access
+    requestAccessButton.addEventListener("click", async () => {
+      try {
+        const directoryHandle = await window.showDirectoryPicker();
+        songList = [];
+        for await (const entry of directoryHandle.values()) {
+          if (entry.kind === "file" && entry.name.endsWith(".mp3")) {
+            songList.push(entry);
+          }
+        }
+        if (songList.length > 0) {
+          fileAccessSection.classList.add("d-none"); // Hide the file access section
+          musicPlayerSection.classList.remove("d-none"); // Show the music player section
+          loadPlaylist();
+          playSong(0);
+        } else {
+          alert("No music files found in the selected directory.");
+        }
+      } catch (error) {
+        console.error("Error accessing files:", error);
+        alert("File access permission denied or canceled.");
+      }
+    });
+
+    // Load playlist
+    function loadPlaylist() {
+      playlist.innerHTML = "";
+      songList.forEach((song, index) => {
+        const listItem = document.createElement("li");
+        listItem.className = "list-group-item";
+        listItem.textContent = song.name;
+        listItem.addEventListener("click", () => playSong(index));
+        playlist.appendChild(listItem);
+      });
+    }
+
+    // Play song
+    async function playSong(index) {
+      currentIndex = index;
+      const file = songList[currentIndex];
+      const fileData = await file.getFile();
+      audioPlayer.src = URL.createObjectURL(fileData);
+      audioPlayer.play();
+      currentSong.textContent = file.name;
+      vibeCircle.style.display = "block";
+    }
+
+    // Handle song end
+    audioPlayer.addEventListener("ended", () => {
+      currentIndex = (currentIndex + 1) % songList.length;
+      playSong(currentIndex);
+    });
+
+    // Handle play/pause events for vibe circle
+    audioPlayer.addEventListener("play", () => {
+      vibeCircle.style.display = "block";
+    });
+
+    audioPlayer.addEventListener("pause", () => {
+      vibeCircle.style.display = "none";
+    });
+  </script>
+</body>
+  </html>
